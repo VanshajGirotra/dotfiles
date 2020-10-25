@@ -202,4 +202,5 @@ bar {
 ### wallpaper ### 
 exec_always feh --bg-fill ~/.config/i3/wallpaper.jpg
 ###
+exec compton
 
