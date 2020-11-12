@@ -1,31 +1,43 @@
-# Guess the weather hourly
-[weather]
-command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
-interval=3600
-color=#A4C2F4
-
-# Query my default IP address only on startup
-[ip]
-command=hostname -i | awk '{ print "IP:" $1 }'
+[WEATHER_SIGNALER]
+command=~/.config/i3blocks/weather/weather_signaler
 interval=once
-color=#91E78B
 
-# Update time every 1 seconds
-[time]
-command=date +%T
+[WEATHER]
+command=~/.config/i3blocks/weather/weather_info.sh
+interval=300
+color=#FEC925
+signal=2
+
+[DISK]
+command=df -h / | awk '/\//{ printf(" 💾 %4s/%s \n", $4, $2) }'
+interval=2
+color=#C9E3DB
+
+[BATTERY]
+command=~/.config/i3blocks/battery/battery_info.sh
+interval=3
+
+[CPU]
+full_text= CPU:  0.00% @ +00.0°C 
+command=~/.config/i3blocks/cpu/cpu_info.sh
+interval=repeat
+color=#00B4EB
+
+[MEM]
+command=free -h | awk '/Mem:/ { printf(" 🐏 %5s/%s \n", $3, $2) }'
 interval=1
+color=#FEC925
 
+[SOUND_BURST]
+command=~/.config/i3blocks/sound/sound_burst.sh
+interval=once
 
-[battery]
-command=battery.sh
-interval=10
+[SOUND]
+full_text= 🔇:  0% 
+command=~/.config/i3blocks/sound/sound_info.sh
+interval=0
+signal=1
 
-
-[cpu_usage]
-command=$SCRIPT_DIR/cpu_usage
-interval=10
-LABEL=CPU 
-#min_width=CPU: 100.00%
-#T_WARN=50
-#T_CRIT=80
-#DECIMALS=2
+[TIME_DATE]
+command=date +" %a, %d %b - %H:%M:%S"
+interval=1
